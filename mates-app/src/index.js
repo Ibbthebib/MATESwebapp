@@ -5,8 +5,8 @@ import Login from "./login/login";
 import Signup from "./signup/signup";
 import Dashboard from "./dashboard/dashboard";
 import Myprofile from "./myprofile/myprofile";
-import Imageupload from "./dashboard/ImageUpload";
 import Match from "./match/users";
+import Home from "./home/home"
 
 const firebase = require("firebase");
 require("firebase/firestore");
@@ -31,8 +31,9 @@ const routing = (
       <Route path="/signup" component={Signup}></Route>
       <Route path="/dashboard" component={Dashboard}></Route>
       <Route path="/myprofile" component={Myprofile}></Route>
-      <Route path="/imagetest" component={Imageupload}></Route>
       <Route path="/match" component={Match}></Route>
+      <Route path="/home" component={Home}></Route>
+
     </div>
   </Router>
 );

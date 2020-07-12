@@ -11,7 +11,8 @@ const styles = (theme) => ({
     },
   },
   paper: {
-    background: "#028090",
+    // background: "#028090",
+    // fontColor:"black",
 
     marginTop: theme.spacing.unit * 10,
     display: "flex",
@@ -34,6 +35,7 @@ const styles = (theme) => ({
   },
   hasAccountHeader: {
     width: "100%",
+    color: "black",
   },
   logInLink: {
     width: "100%",
@@ -47,7 +49,7 @@ const styles = (theme) => ({
   },
 
   header: {
-    color: "whitesmoke",
+    color: "black",
     fontWeight: 500,
     // backgroundcolor: "red",
   },

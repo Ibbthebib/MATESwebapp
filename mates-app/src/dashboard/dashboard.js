@@ -19,6 +19,8 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import { withRouter } from "react-router";
 import { BrowserRouter } from "react-router";
+import ListComponent from "../chat/chatList";
+import chat from "../chat/chat";
 
 const firebase = require("firebase");
 
@@ -26,9 +28,10 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      email: null,
+      email: "",
       chats: [],
       text: "",
+      currentChat: 0,
     };
   }
   render() {
@@ -36,23 +39,18 @@ class Dashboard extends Component {
     return (
       <main className={classes.main}>
         <CssBaseline></CssBaseline>
+        <ListComponent
+          history={this.props.history}
+          currUser={this.state.email}
+          selectChat={this.selectChat}
+          chats={this.state.chats}
+        ></ListComponent>
 
         <Paper className={classes.paper}>
           <FormControl>
-            <IconButton
-              component="span"
-              className={classes.mainphoto}
-              onClick={() => this.props.history.push("/myprofile")}
-
-              // onClick={this.props.history.push("/myprofile")}
-              // aria-label="profile"
-            >
-              <AccountCircleOutlinedIcon />
-            </IconButton>
             <Chat
-              // id="chats"
               user={this.state.email}
-              chat={this.state.chats[0]}
+              chat={this.state.chats[this.state.currentChat]}
             />{" "}
             <br />
             <br />
@@ -67,7 +65,6 @@ class Dashboard extends Component {
                 className={classes.chatTextBox}
                 onFocus={this.userClickedInput}
               ></TextField>
-              {/* <button type="button">send </button> */}
             </div>
           </FormControl>
         </Paper>
@@ -82,16 +79,13 @@ class Dashboard extends Component {
         });
   };
   sendingMessage() {
-    // let dockey = "";
     document.getElementById("textbox").value = "";
 
-    const docKey = this.buildDocKey(
-      this.state.chats[0].users.filter(
-        (userss) => userss !== this.state.email
-      )[0]
-    );
-    // console.log(docKey);
-    // console.log(this.buildDocKey);
+    const docKey = [this.state.email, this.state.chats[this.state.currentChat].users.filter(
+      (users) => users !== this.state.email
+    )[0]].sort().join(":");
+
+  
     firebase
       .firestore()
       .collection("chatsDB")
@@ -103,8 +97,10 @@ class Dashboard extends Component {
         }),
       });
   }
-  buildDocKey = (friend) => [this.state.email, friend].sort().join(":");
 
+  selectChat = (index) => {
+    this.setState({ currentChat: index });
+  };
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
@@ -120,10 +116,8 @@ class Dashboard extends Component {
               email: user.email,
               chats: firebaseChats,
             });
-            // console.log(this.state);
           });
       }
-      // console.log(this.state);
     });
   };
 }

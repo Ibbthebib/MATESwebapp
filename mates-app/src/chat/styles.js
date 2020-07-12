@@ -2,37 +2,13 @@ const styles = (theme) => ({
   content: {
     height: "300px",
     overflow: "auto",
-    // padding: "25px",
-    // marginLeft: "100px",
     boxSizing: "border-box",
-    // overflow: "auto",
-
     overflowY: "scroll",
     marginTop: theme.spacing.unit * 3,
-
-    // top: "50px",
-    // width: "calc(100% - 300px)",
     position: "relative",
   },
-  // paper: {
-  //   // width: "calc(100% - 300px)",
-  //   background: "white",
-
-  //   // marginTop: theme.spacing.unit * ,
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   // alignItems: "center",
-  //   overflow: "auto",
-  //   overflowY: "scroll",
-  //   // position: "absolute",
-  //   padding: `${theme.spacing.unit * 8}px ${theme.spacing.unit * 9}px ${
-  //     theme.spacing.unit * 3
-  //   }px`,
-  // },
 
   userSent: {
-    // alignItems: "center",
-
     float: "left",
     clear: "both",
     padding: "20px",
@@ -42,7 +18,7 @@ const styles = (theme) => ({
     backgroundColor: "#e7feff",
     color: "black",
     width: "300x",
-    borderRadius: "10px",
+    borderRadius: "20px",
   },
 
   friendSent: {
@@ -54,15 +30,15 @@ const styles = (theme) => ({
     marginTop: "10px",
     backgroundColor: "#BADA55",
     color: "black",
-    width: "300px",
-    borderRadius: "10px",
+    width: "100x",
+    borderRadius: "20px",
+    // marginRight:"-50px"
   },
 
   chatHeader: {
-    // width: "calc(50% - 50px)",
+    width: "calc(110% - 50px)",
     height: "30px",
     backgroundColor: "#BADA55",
-    // position: "center",
     marginLeft: "50px",
     fontSize: "18px",
     textAlign: "center",
@@ -70,6 +46,19 @@ const styles = (theme) => ({
     paddingTop: "-5px",
     // boxSizing: "border-box",
     borderRadius: "50px",
+  },
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    height: 0,
+    position: "static",
+    marginLeft: -250,
+    width: "230px",
+    // boxShadow: '0px 0px 2px black'
+  },
+  mainphoto: {
+    fontsize: 100,
+    marginLeft: -230,
+    position: "absolute",
   },
 });
 

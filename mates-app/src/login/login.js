@@ -78,7 +78,7 @@ class Login extends Component {
               {" "}
               Log in
             </Button>
-            <Typography>
+            <Typography className={classes.noaccount}>
               Dont have an account? <Link to="./Signup">Signup</Link>
             </Typography>
           </form>
@@ -113,6 +113,7 @@ class Login extends Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(
         () => {
+          
           this.props.history.push("/dashboard");
         },
         (error) => {

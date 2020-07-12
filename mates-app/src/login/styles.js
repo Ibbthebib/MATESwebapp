@@ -1,5 +1,6 @@
 const styles = (theme) => ({
   main: {
+   
     width: "auto",
     display: "block", // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
@@ -11,9 +12,10 @@ const styles = (theme) => ({
     },
   },
   paper: {
-    background: "#028090",
+    
+    background: "whitesmoke",
 
-    marginTop: theme.spacing.unit * 10,
+    // marginTop: theme.spacing.unit * 10,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -21,6 +23,7 @@ const styles = (theme) => ({
       theme.spacing.unit * 3
     }px`,
   },
+
   form: {
     width: "100%",
     marginTop: theme.spacing.unit,
@@ -44,6 +47,9 @@ const styles = (theme) => ({
   errorText: {
     color: "red",
     textAlign: "center",
+  },
+  noaccount:{
+color:"black"
   },
 
   header: {

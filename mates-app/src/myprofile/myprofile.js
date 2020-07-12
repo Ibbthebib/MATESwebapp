@@ -16,6 +16,7 @@ import AddPhotoAlternateOutlinedIcon from "@material-ui/icons/AddPhotoAlternateO
 import styles from "./styles";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import MyLocationIcon from '@material-ui/icons/MyLocation';
 const firebase = require("firebase");
 
 class Myprofile extends Component {
@@ -116,6 +117,11 @@ class Myprofile extends Component {
                   value={this.state.location}
                   onChange={(e) => this.updateDetails("location", e)}
                 ></TextField>
+                <IconButton onClick={this.getLocation}>
+                  <MyLocationIcon>
+                    
+                  </MyLocationIcon>
+                </IconButton>
                 <br />
                 <br />
                 <TextField
@@ -142,6 +148,11 @@ class Myprofile extends Component {
         </Paper>
       </main>
     );
+  }
+  getLocation(){
+    return fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDRX1tdBmx8UUuRoJNxS3caWot5Y5xv7dQ')
+    .then(res => console.log(res.json()))
+   
   }
 
   updateDetails(type, e) {
@@ -261,6 +272,7 @@ class Myprofile extends Component {
   };
 
   componentDidMount = () => {
+    
     firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
         this.props.history.push("/login");
@@ -293,6 +305,7 @@ class Myprofile extends Component {
               email: user.email,
             });
           });
+          
         // firebase
         //   .firestore()
         //   .collection("userProfile")
@@ -307,6 +320,7 @@ class Myprofile extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
+    
     // console.log(this.state.newName)
     if (prevState.newName !== this.state.newName) {
       // firebase.firebaseRef.off("value");

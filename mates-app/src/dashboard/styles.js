@@ -2,13 +2,14 @@ const styles = (theme) => ({
   main: {
     width: "auto",
     display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
+    // marginLeft: theme.spacing.unit * 3,
+    // marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
+      width: 450,
       marginLeft: "auto",
       marginRight: "auto",
     },
+    position:"relative"
   },
 
   paper: {
@@ -20,7 +21,7 @@ const styles = (theme) => ({
     alignItems: "center",
     overflow: "auto",
     overflowY: "scroll",
-    position: "absolute",
+    position: "relative",
     padding: `${theme.spacing.unit * 8}px ${theme.spacing.unit * 9}px ${
       theme.spacing.unit * 3
     }px`,
@@ -64,6 +65,7 @@ const styles = (theme) => ({
   },
   mainphoto: {
     fontsize: 100,
+    marginLeft: "auto",
     position: "absolute",
   },
 });
