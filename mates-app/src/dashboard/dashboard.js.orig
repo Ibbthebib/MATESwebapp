@@ -20,7 +20,7 @@ import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined"
 import { withRouter } from "react-router";
 import { BrowserRouter } from "react-router";
 import ListComponent from "../chat/chatList";
-// import chat from "../chat/chat";
+import chat from "../chat/chat";
 
 const firebase = require("firebase");
 
