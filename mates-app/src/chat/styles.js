@@ -1,10 +1,9 @@
 const styles = (theme) => ({
   content: {
     height: "300px",
-    overflow: "auto",
-    boxSizing: "border-box",
+    width: 300,
     overflowY: "scroll",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     position: "relative",
   },
 
@@ -32,7 +31,6 @@ const styles = (theme) => ({
     color: "black",
     width: "100x",
     borderRadius: "20px",
-    // marginRight:"-50px"
   },
 
   chatHeader: {
@@ -44,18 +42,24 @@ const styles = (theme) => ({
     textAlign: "center",
     color: "black",
     paddingTop: "-5px",
-    // boxSizing: "border-box",
     borderRadius: "50px",
   },
   root: {
-    backgroundColor: theme.palette.background.paper,
-    height: 0,
+    height: 60,
     position: "static",
-    marginLeft: -250,
     width: "230px",
-    // boxShadow: '0px 0px 2px black'
+    boxShadow: "0px 0px 2px whitesmoke",
   },
-  mainphoto: {
+  listRoot: {
+    height: "600px",
+    overflowY: "hidden",
+    overflowX: "hidden",
+    overflowY: "scroll",
+    position: "static",
+    width: "230px",
+    boxShadow: "0px 0px 2px whitesmoke",
+  },
+  personIcon: {
     fontsize: 100,
     marginLeft: -230,
     position: "absolute",

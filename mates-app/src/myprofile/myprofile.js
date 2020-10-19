@@ -17,6 +17,13 @@ import styles from "./styles";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MyLocationIcon from "@material-ui/icons/MyLocation";
+/**
+ * Myprofile is a class based react component that allows a user to edit their details which are located
+ * here. Details such as name, location, bio, avatar. This allows a for a user friendly application.
+ * It also allows othe users to know more about the user.
+ *
+ * @author Ibrahim Alzilitni
+ */
 const firebase = require("firebase");
 
 class Myprofile extends Component {
@@ -35,13 +42,14 @@ class Myprofile extends Component {
       image: null,
       url: "",
       newName: "",
+      newAge: "",
       newEmail: "",
       newBio: "",
       newLocation: "",
+      tags: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
-    // this.updateDetails = this.updateDetails.bind(this);
   }
   render() {
     const { classes } = this.props;
@@ -49,19 +57,14 @@ class Myprofile extends Component {
     return (
       <main className={classes.main}>
         <CssBaseline></CssBaseline>
-        <Paper className={classes.paper}>
+        <Paper data-test="Paper" className={classes.paper}>
           <form className={classes.form} noValidate autoComplete="off">
-            <FormControl className={classes.form}>
-              <Typography variant="h5" className={classes.header}>
-                <IconButton
-                  component="span"
-                  onClick={() => this.props.history.push("/dashboard")}
-
-                  // onClick={this.props.history.push("/myprofile")}
-                  // aria-label="profile"
-                >
-                  <ArrowBackIcon className={classes.backarrow} />
-                </IconButton>
+            <FormControl data-test="FormControl" className={classes.form}>
+              <Typography
+                data-test="banner"
+                variant="h5"
+                className={classes.header}
+              >
                 {this.state.name + "'s "} profile
               </Typography>
               <img
@@ -78,25 +81,24 @@ class Myprofile extends Component {
               />
               <input
                 color="primary"
-                // accept="image/*"
                 type="file"
                 onChange={(e) => this.handleChange("mainphoto", e)}
                 id="icon-button-file"
                 style={{ display: "none" }}
               />
               <label htmlFor="icon-button-file">
-                <IconButton component="span">
-                  <AddCircleOutlineIcon className={classes.mainphotoadd} />
+                <IconButton data-test="button" component="span">
+                  <AddCircleOutlineIcon />
                 </IconButton>
               </label>
               <br />
               <br />
-              <Typography className={classes.profilesection}>
+              <Typography data-test="banner" className={classes.profilesection}>
                 <div>
                   <TextField
+                    data-test="fields"
                     label="Name"
                     position="relative"
-                    // type="input"
                     type="email"
                     name="email"
                     variant="outlined"
@@ -110,25 +112,33 @@ class Myprofile extends Component {
                 <br />
                 <br />
                 <TextField
+                  data-test="fields"
                   label="Location"
                   position="relative"
                   variant="outlined"
                   value={this.state.location}
                   onChange={(e) => this.updateDetails("location", e)}
                 ></TextField>
-                <IconButton onClick={this.getLocation}>
+                <IconButton data-test="button" onClick={this.getLocation}>
                   <MyLocationIcon></MyLocationIcon>
                 </IconButton>
                 <br />
                 <br />
                 <TextField
-                  // variant="body1"
+                  data-test="fields"
+                  label="Age"
+                  position="relative"
+                  variant="outlined"
+                  value={this.state.age}
+                  onChange={(e) => this.updateDetails("age", e)}
+                ></TextField>
+
+                <br />
+                <br />
+                <TextField
                   InputProps={{ classes: { input: classes.biofield } }}
-                  // className={classes.biofield}
-                  // type="text"
                   value={this.state.bio}
                   position="absolute"
-                  // id="outlined-basic"
                   label="Bio"
                   variant="outlined"
                   onChange={(e) => this.updateDetails("bio", e)}
@@ -137,7 +147,11 @@ class Myprofile extends Component {
               <AddPhotoAlternateOutlinedIcon
                 className={classes.otherphotos}
               ></AddPhotoAlternateOutlinedIcon>
-              <button position="fixed" onClick={this.handleUpload}>
+              <button
+                data-test="button"
+                position="fixed"
+                onClick={this.handleUpload}
+              >
                 Save
               </button>
             </FormControl>
@@ -146,11 +160,21 @@ class Myprofile extends Component {
       </main>
     );
   }
+  /**
+   * getLocation method is used to fetch a users location using google api.
+   */
   getLocation() {
     return fetch(
       "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDRX1tdBmx8UUuRoJNxS3caWot5Y5xv7dQ"
     ).then((res) => console.log(res.json()));
   }
+  /**
+   * The updateDetails method is used to update the state properties of the class myProfile.
+   * Once these state properties are updated they can be used elsewhere.
+   * The properties that can be updated are : the users name, the users location and the users bio.
+   * @param {*} type the type of input.
+   * @param {*} e the users input.
+   */
 
   updateDetails(type, e) {
     switch (type) {
@@ -173,22 +197,31 @@ class Myprofile extends Component {
           newBio: e.target.value,
         });
         break;
+      case "age":
+        this.setState({
+          age: e.target.value,
+          newAge: e.target.value,
+        });
+        break;
       default:
         break;
     }
   }
-
+  /**
+   * The handleChange method is used to extract an image and store in the state properties.
+   * Thereafter, the users image will be used elsewhere.
+   * @param {*} type type of photo.
+   * @param {*} e event to prevent page from subsequent page reloading but also to get the image.
+   */
   handleChange = (type, e) => {
     e.preventDefault();
     console.log("Im  here");
     if (e.target.files[0]) {
-      // const image = e.target.files[0];
       switch (type) {
         case "mainphoto":
           this.setState({
             mainphoto: e.target.files[0],
           });
-
           break;
         case "image":
           this.setState({
@@ -198,11 +231,13 @@ class Myprofile extends Component {
         default:
           break;
       }
-      // this.setState({ image });
     }
-    console.log(this.state);
   };
-
+  /**
+   * The handleUpload method is used to upload the images found in the state properties above
+   * into the database.
+   * @param {*} e  to prevent subsequent page reloading.
+   */
   handleUpload = (e) => {
     e.preventDefault();
     const { mainphoto, image } = this.state;
@@ -213,17 +248,11 @@ class Myprofile extends Component {
         .put(mainphoto);
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
-          // progrss function ....
-          //   const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          //   this.setState({progress});
-        },
+        () => {},
         (error) => {
-          // error function ....
           console.log(error);
         },
         () => {
-          // complete function ....
           firebase
             .storage()
             .ref(this.state.email)
@@ -243,17 +272,11 @@ class Myprofile extends Component {
         .put(image);
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
-          // progrss function ....
-          //   const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          //   this.setState({progress});
-        },
+        () => {},
         (error) => {
-          // error function ....
           console.log(error);
         },
         () => {
-          // complete function ....
           firebase
             .storage()
             .ref(this.state.email)
@@ -267,32 +290,30 @@ class Myprofile extends Component {
       );
     }
   };
-
+  /**
+   * The componentDidMount react lifecycle method is used to load the users current profile details
+   * upon the component mounting.The method loads the users current photo as well as
+   * location, bio and name into the state properties which are then presented to the user.
+   */
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
         this.props.history.push("/login");
       } else {
-        const downloading =
-          // complete function ....
-          firebase
-            .storage()
-            .ref(user.email)
-            .child("mainphoto")
-            .getDownloadURL()
-            .then((url) => {
-              console.log(url);
-              this.setState({ mainphotourl: url });
-            });
-        console.log(this.state);
-
+        const downloading = firebase
+          .storage()
+          .ref(user.email)
+          .child("mainphoto")
+          .getDownloadURL()
+          .then((url) => {
+            this.setState({ mainphotourl: url });
+          });
         const testing = await firebase
           .firestore()
           .collection("userProfile")
           .where("email", "==", user.email)
           .onSnapshot(async (result) => {
             const firebase = result.docs.map((doc) => doc.data());
-            // console.log(firebase[0].email);
             this.setState({
               name: firebase[0].name,
               location: firebase[0].location,
@@ -301,38 +322,30 @@ class Myprofile extends Component {
               email: user.email,
             });
           });
-
-        // firebase
-        //   .firestore()
-        //   .collection("userProfile")
-        //   .doc(user.email)
-
-        //   .update({
-        //     test: this.state.newName,
-        //     // message: this.state.text,
-        //   });
       }
     });
   };
-
+  /**
+   * The componentDidUpdate method is used to detect updates made by the user to their
+   * details. Once an update is detetced the users details are updated in the database
+   * allowing for up to date results.
+   * @param {*} prevProps the previous properties of the class.
+   * @param {*} prevState the previous state properties of the class.
+   */
   componentDidUpdate(prevProps, prevState) {
-    // console.log(this.state.newName)
     if (prevState.newName !== this.state.newName) {
-      // firebase.firebaseRef.off("value");
       firebase.auth().onAuthStateChanged(async (user) => {
         await firebase
           .firestore()
           .collection("userProfile")
           .doc(user.email)
-
           .set({
             name: this.state.newName,
             location: this.state.location,
             bio: this.state.bio,
             email: user.email,
             age: this.state.age,
-
-            // message: this.state.text,
+            created: Date.now(),
           });
       });
     } else if (prevState.newLocation !== this.state.newLocation) {
@@ -341,15 +354,12 @@ class Myprofile extends Component {
           .firestore()
           .collection("userProfile")
           .doc(user.email)
-
           .set({
             name: this.state.name,
             location: this.state.newLocation,
             bio: this.state.bio,
             email: user.email,
             age: this.state.age,
-
-            // message: this.state.text,
           });
       });
     } else if (prevState.newBio !== this.state.newBio) {
@@ -358,15 +368,26 @@ class Myprofile extends Component {
           .firestore()
           .collection("userProfile")
           .doc(user.email)
-
           .set({
             name: this.state.name,
             location: this.state.location,
             bio: this.state.newBio,
             email: user.email,
             age: this.state.age,
-
-            // message: this.state.text,
+          });
+      });
+    } else if (prevState.newAge !== this.state.newAge) {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        await firebase
+          .firestore()
+          .collection("userProfile")
+          .doc(user.email)
+          .set({
+            name: this.state.name,
+            location: this.state.location,
+            bio: this.state.bio,
+            email: user.email,
+            age: this.state.newAge,
           });
       });
     }

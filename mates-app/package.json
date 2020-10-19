@@ -8,11 +8,16 @@
     "react-scripts": "0.9.5",
     "react-swipeable-views": "^0.13.9"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.10.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
+    "jest": "^26.4.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
   }
 }

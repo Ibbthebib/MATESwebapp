@@ -1,36 +1,33 @@
 const styles = (theme) => ({
   main: {
     width: "auto",
-    display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+    display: "block", 
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    [theme.breakpoints.up(400 + theme.spacing(6))]: {
       width: 400,
       marginLeft: "auto",
       marginRight: "auto",
     },
   },
   paper: {
-    // background: "#028090",
-    // fontColor:"black",
-
-    marginTop: theme.spacing.unit * 10,
+    marginTop: theme.spacing(10),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 8}px ${theme.spacing.unit * 9}px ${
-      theme.spacing.unit * 3
+    padding: `${theme.spacing(8)}px ${theme.spacing(9)}px ${
+      theme.spacing(3)
     }px`,
   },
   form: {
     width: "100%",
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     color: "whitesmoke",
   },
   submit: {
     background: "#70A37F",
     color: "white",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     fontWeight: 500,
   },
   hasAccountHeader: {
@@ -51,7 +48,6 @@ const styles = (theme) => ({
   header: {
     color: "black",
     fontWeight: 500,
-    // backgroundcolor: "red",
   },
 });
 

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import styles from "./styles";
 import {
   FormControl,
   InputLabel,
@@ -11,7 +10,6 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import styling from "./styles.css";
 // import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -26,11 +24,17 @@ import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-
 import ListItem from "@material-ui/core/ListItem";
+
+/**
+ * A functional based component which is created to present the home page of the browser
+ * implementation to the user. The component is also intended to provide the user with the
+ * ability to login and signup. Thereafter, a user is redirected to the dashboard.
+ *
+ * @author Ibrahim Alzilitni
+ */
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const tutorialSteps = [
-  //London
   {
     img:
       "https://images.unsplash.com/photo-1581499242002-4d081930dd25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -48,7 +52,7 @@ const tutorialSteps = [
       "https://images.unsplash.com/photo-1586711247059-63dfa293152b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=80",
   },
 ];
-
+//CSS inline styling to be used for various elements that will be rendered to DOM.
 const useStyles = makeStyles((theme) => ({
   modal: {
     overflowY: "hidden",
@@ -56,46 +60,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    // position: "static",
   },
   paper: {
     overflowY: "hidden",
-    // overflowX: 'hidden',
-
-
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    // position: "static",
   },
   content: {
     overflowY: "hidden",
-    overflowX: 'hidden',
-
-
-    // WebkitOverflowScrolling: "none",
-    // overflow:"hidden",    // overflow:"none",
-    // backgroundImage: `url(${require("../home/goodtime.jpg")})`,
-    // backgroundPosition: "center",
-    // backgroundSize: "contain",
-    // backgroundRepeat: "repeat",
-
-    // marginTop: theme.spacing.unit * 10,
+    overflowX: "hidden",
     display: "flex",
     height: "auto",
-    width: "auto",
+    width: "100%",
     position: "relative",
-    // position:"relative",    // flexDirection: "column",
-    // alignItems: "center",
-    // padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
-    //   90
-    // )}px`,
+    backgroundSize: "100%",
   },
 
   header: {
-    // overflowY: "hidden",
-    // marginLeft:200,
     fontSize: 40,
     fontWeight: 900,
     color: "White",
@@ -104,90 +87,40 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     position: "absolute",
     top: 0,
-    zIndex:1000
+    zIndex: 1000,
   },
   loginbutton: {
-    // overflowY: 'hidden',
-
-    // top: "auto",
-    // bottom: 0,
-    // color:"white"
     position: "absolute",
     top: "8px",
     right: "16px",
-    zIndex:1000,
-    // padding:"20px"
-    border:"60px"
+    zIndex: 1000,
+    border: "60px",
   },
   signupbutton: {
-    // overflowY: 'hidden',
-
-    
-    // bottom: "6px",
-    // color:"white"
     position: "absolute",
-    // display: "flex",
-
-    // // top: "8px",
-    // alignItems: "center",
-    // justifyContent: "center",   
-    //  marginRight: "auto",
-    //  marginLeft: "auto",
     top: " 55%",
     left: "50%",
-    zIndex:1000,
+    zIndex: 1000,
   },
-  banner:{
-    color:"white",
-position:"absolute",
-top:"40%",
-left:"40%",
-zIndex:1000,
-
-  },
-  // root: {
-  //   // maxWidth: 600,
-  //   // flexGrow: 1,
-  // },
-  // header: {
-  //   display: "flex",
-  //   alignItems: "center",
-  //   height: 50,
-  //   paddingLeft: theme.spacing(4),
-  //   backgroundColor: theme.palette.background.default,
-  // },
-  // nextarrow: {
-  //   marginLeft: 270,
-  //   height: 400,
-  //   position: "absolute",
-  // },
-  // backarrow: {
-  //   marginLeft: -70,
-  //   height: 400,
-
-  //   position: "absolute",
-  // },
-  img: {
-    alignItems: "center",
-    // position:"fixed",
-    marginLeft: "auto",
-    marginRight: "auto",
-    height: 800,
-    // display: 'block',
-    width: "auto",
-    overflow: "hidden",
-    // width: "1000%",
-  },
-  stepper: {
-    // alignItems: "center",
-    // position: "static",
-    // marginLeft: 105,
-    // marginRight:"auto"
+  banner: {
+    color: "white",
+    position: "absolute",
+    top: "40%",
+    left: "40%",
+    zIndex: 1000,
   },
 }));
-
+/**
+ * The main funciton that is being exported to the user of the application.
+ * This function is the intended function to be rendered into the browser DOM.
+ * The function handles the display of the background as well as the display of
+ * the log in and sign up components. Thereafter these components are presented in a modal.
+ * The modal has been inspired by material-ui with extensive changes to fit the systems needs.
+ * https://material-ui.com/components/modal/
+ * @param {*} props passing the properties of the application to the function since functional components do not
+ * inheirt the props naturally.
+ */
 function TransitionsModal(props) {
-  console.log("im here");
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [signupopen, setSignupOpen] = React.useState(false);
@@ -209,10 +142,15 @@ function TransitionsModal(props) {
   return (
     <main id="root">
       <CssBaseline></CssBaseline>
-      <Paper className={classes.content}>
-        <Typography variant="h2" className={classes.header}>Mates</Typography>
-        <Typography variant="h3" className={classes.banner}>Match. Chat. Chill.</Typography>
+      <Paper data-test="Paper" className={classes.content}>
+        <Typography data-test="Header" variant="h2" className={classes.header}>
+          Mates
+        </Typography>
+        <Typography data-test="Banner" variant="h3" className={classes.banner}>
+          Match. Chat. Chill.
+        </Typography>
         <Button
+          data-test="Button"
           onClick={handleOpen}
           variant="contained"
           className={classes.loginbutton}
@@ -221,21 +159,16 @@ function TransitionsModal(props) {
         </Button>
 
         <Button
+          data-test="Button"
           onClick={handleSignupOpen}
           variant="contained"
           className={classes.signupbutton}
         >
           Sign up
         </Button>
-        <SwipeableTextMobileStepper></SwipeableTextMobileStepper>
-
-        {/* <List component="nav">
-          <ListItem component="div">
-            
-          </ListItem>
-        </List> */}
-
+        <SwipeableTextMobileStepper data-test="Carousel"></SwipeableTextMobileStepper>
         <Modal
+          data-test="Modal"
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           className={classes.modal}
@@ -252,6 +185,7 @@ function TransitionsModal(props) {
           </Fade>
         </Modal>
         <Modal
+          data-test="Modal"
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           className={classes.modal}
@@ -271,7 +205,13 @@ function TransitionsModal(props) {
     </main>
   );
 }
-
+/**
+ * This function deals with implementing the carousel feature where the background
+ * changes to a different city photo.
+ * The implementation itself has been inherited from the material-ui but
+ * tailored and edited extensively to suit the needs of this application.
+ * https://material-ui.com/components/steppers/
+ */
 function SwipeableTextMobileStepper() {
   const classes = useStyles();
   const theme = useTheme();
@@ -292,32 +232,6 @@ function SwipeableTextMobileStepper() {
 
   return (
     <div>
-      {/* <Button
-        className={classes.backarrow}
-        size="small"
-        onClick={handleBack}
-        disabled={activeStep === 0}
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
-        {/* Back */}
-      {/* </Button> */}
-      {/* <Button
-        className={classes.nextarrow}
-        size="small"
-        onClick={handleNext}
-        disabled={activeStep === maxSteps - 1}
-      >
-        {/* Next */}
-      {/* {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )} */}
-      {/* </Button>   */}
       <AutoPlaySwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
@@ -328,39 +242,25 @@ function SwipeableTextMobileStepper() {
           // <div>
           Math.abs(activeStep - index) <= 2 ? (
             <img
-              // className={classes.img}
-              // src={step.img}
               style={{
                 backgroundImage: "url(" + step.img + ")",
-                // backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundSize: "contain",
-                // backgroundRepeat: "repeat",
                 overflowY: "hidden",
                 overflowX: "hidden",
                 display: "flex",
-                height: 835,
-                width: 1500,
-                zIndex:-1,
+                top: 0,
+                left: 0,
+                height: 1000,
+                width: 1000000,
+                zIndex: -1,
                 position: "relative",
-
-                // padding: `${theme.spacing(2)}px ${theme.spacing(
-                //   2
-                // )}px ${theme.spacing(90)}px`,
-                // height: "100vh",
-                // color: "#f5f5f5"
               }}
-              // data-caption="This is the caption"
             />
           ) : null
-          // </div>
         )}
       </AutoPlaySwipeableViews>
-    
     </div>
   );
 }
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<Home/>, rootElement)
-
-export default withStyles(styles)(TransitionsModal);
+export default TransitionsModal;

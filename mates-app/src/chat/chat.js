@@ -1,18 +1,38 @@
 import React from "react";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core/styles";
+import { Avatar } from "@material-ui/core";
+/**
+ * The Chat class based component is used to present the user with a chat history
+ * between themselves and a connection. Thereafter the chat history is presented
+ * in a UI friendly method.
+ * @author Ibrahim Alzilitni
+ */
+const firebase = require("firebase");
 
 class Chat extends React.Component {
-  componentDidUpdate() {
-    // if ("scrollRestoration" in window.history) {
-    //   window.history.scrollRestoration = "manual";
-    // }
-    const container = document.getElementById("chat");
-    if (container) container.scrollTo(0, container.scrollHeight);
+  constructor(props) {
+    super();
+    this.state = {
+      props: props,
+      avatar: "",
+    };
   }
+  /**
+   * The componentDidUpdate lifecycle method makes sure that the chat is always
+   * directed towards the last message.This way the user does not have to scroll
+   * all the way to the bottom of the chat history to see the latest message.
+   */
+  componentDidUpdate() {
+    const chat = document.getElementById("chathistory");
+    if (chat) chat.scrollTo(0, chat.scrollHeight);
+  }
+  /**
+   *  The render method is used to display the properties that have been created to present
+   * the chat histroy in a user friendly way.
+   */
   render() {
     const { classes, chat, user } = this.props;
-
     if (chat === undefined) {
       return <main className={classes.content}></main>;
     } else if (chat !== undefined) {
@@ -21,7 +41,7 @@ class Chat extends React.Component {
           <div className={classes.chatHeader}>
             {chat.users.filter((users) => users !== user)[0]}
           </div>
-          <main id="chat" className={classes.content}>
+          <main data-test="chat" id="chathistory" className={classes.content}>
             {chat.messages.map((message, index) => {
               return (
                 <div
